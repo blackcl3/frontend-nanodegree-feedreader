@@ -91,12 +91,15 @@ $(function() {
          // * a single .entry element within the .feed container.
          // * Remember, loadFeed() is asynchronous so this test will require
          // * the use of Jasmine's beforeEach and asynchronous done() function.
-            const feed = $('.feed');
+
+
             beforeEach(function(done){
                 loadFeed(0, done);
             });
+
             it('should have at least one entry', function(){
-                expect(feed.children.length > 0).toBe(true);
+                let entries = $('.feed .entry');
+                expect(entries.length).toBeGreaterThan(0);
             });
         });
 
