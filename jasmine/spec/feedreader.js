@@ -8,18 +8,18 @@
  * since some of these tests may require DOM elements. We want
  * to ensure they don't run until the DOM is ready.
  */
-$(function() {
+$( function()  {
     /* This is our first test suite - a test suite just contains
     * a related set of tests. This suite is all about the RSS
     * feeds definitions, the allFeeds variable in our application.
     */
-    describe('RSS Feeds', function() {
+    describe('RSS Feeds', () => {
         /* This is our first test - it tests to make sure that the
          * allFeeds variable has been defined and that it is not
          * empty. Experiment with this before you get started on
          * the rest of this project.
          */
-        it('are defined', function() {
+        it('are defined', () => {
             expect(allFeeds).toBeDefined();
             expect(allFeeds.length).not.toBe(0);
         });
@@ -30,8 +30,8 @@ $(function() {
          * and that the URL is not empty.
          */
 
-         it('and URL is defined', function(){
-            allFeeds.forEach(function(feed){
+         it('and URL is defined', () => {
+            allFeeds.forEach(feed => {
                 expect(feed.url).toBeDefined();
                 expect(feed.url.length).not.toBe(0);
             })
@@ -42,15 +42,15 @@ $(function() {
          * and that the name is not empty.
          */
 
-          it('and URL is defined', function(){
-            allFeeds.forEach(function(feed){
+          it('and URL is defined', () => {
+            allFeeds.forEach(feed => {
                 expect(feed.name).toBeDefined();
                 expect(feed.name.length).not.toBe(0);
             })
          })
     });
 
-    describe('The menu', function() {
+    describe('The menu', () => {
 
         /* Test ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
@@ -59,7 +59,7 @@ $(function() {
          */
 
          //expect CSS class menu-hidden to be true
-        it('is hidden by default', function(){
+        it('is hidden by default', () => {
             let body = $('body');
             expect($('body').hasClass('menu-hidden')).toBe(true);
          });
@@ -68,12 +68,12 @@ $(function() {
           // * should have two expectations: does the menu display when
           // * clicked and does it hide when clicked again.
 
-        it('and toggles when clicked', function(){
+        it('and toggles when clicked', () => {
             let body = $('body');
-            let $menu = $('menu-icon-link');
+            let $menu = $('.menu-icon-link');
             //click first time
             $menu.trigger('click');
-            expect($('body').hasClass('menu-hidden')).toBe(true);
+            expect($('body').hasClass('menu-hidden')).toBe(false);
             //click second time
             $menu.trigger('click');
             expect($('body').hasClass('menu-hidden')).toBe(true);
@@ -84,7 +84,7 @@ $(function() {
 
      });
 
-        describe('Initial Entries', function(){
+        describe('Initial Entries', () => {
          //
          // Test ensures when the loadFeed
          // * function is called and completes its work, there is at least
@@ -93,17 +93,17 @@ $(function() {
          // * the use of Jasmine's beforeEach and asynchronous done() function.
 
 
-            beforeEach(function(done){
+            beforeEach( done => {
                 loadFeed(0, done);
             });
 
-            it('should have at least one entry', function(){
+            it('should have at least one entry', () => {
                 let entries = $('.feed .entry');
                 expect(entries.length).toBeGreaterThan(0);
             });
         });
 
-    describe('New Feed Selection', function(){
+    describe('New Feed Selection', () => {
 
         /* Test ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
@@ -111,19 +111,19 @@ $(function() {
          */
 
         //function derived from https://medium.com/letsboot/testing-javascript-with-jasmine-basics-48efe03cf973
-        beforeEach(function(done){
+        beforeEach( done => {
             $('.feed').empty();
-            loadFeed(0, function(){
+            loadFeed(0, () => {
                 entriesStart = $('.feed').find(allFeeds.url);
 
-            loadFeed(1, function(){
+            loadFeed(1,() => {
                 entriesEnd = $('.feed').find(allFeeds.url);
                 done();
             });
         });
         });
 
-        it('new feed is different than old feed', function(){
+        it('new feed is different than old feed', () => {
             expect(entriesStart === entriesEnd).toBe(false);
         });
 
