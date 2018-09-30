@@ -114,10 +114,10 @@ $( function()  {
         beforeEach( done => {
             $('.feed').empty();
             loadFeed(0, () => {
-                entriesStart = $('.feed').find(allFeeds.url);
+                entriesStart = $('.feed').html();
 
             loadFeed(1,() => {
-                entriesEnd = $('.feed').find(allFeeds.url);
+                entriesEnd = $('.feed').html();
                 done();
             });
         });
